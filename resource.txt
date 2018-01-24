@@ -1,0 +1,8 @@
+
+important links
+
+liborsa python audio analysis library DOCS:
+http://librosa.github.io/librosa/
+
+liborsa creator video about it and its API :
+https://www.youtube.com/watch?v=MhOdbtPhbLU
