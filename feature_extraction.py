@@ -1,23 +1,59 @@
 
+# python modules
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
-
 import numpy as np
 
-# load wav file
-y, sr = librosa.load('train_data/male/Untitled 017.wav', sr=22050, mono=True)
+# my own modules
+from framing import framing as framing
 
-# convet to numpy array
-y = np.array(y)
+# consts
+frame_len = 100
+hop_len = 0
+
+# load wav file
+y, sr = librosa.load('train_data/male/Untitled 016.wav', sr=22050, mono=True)
 
 # plt.figure(1)
 # plt.plot(y)
 # plt.show()
 
 
+print('y shape =>', y.shape)
+print('y duration => ', librosa.core.get_duration(y), 's')
+
+
+# trim it (remove silence from beggining and end)
+yt, index = librosa.effects.trim(y)
+y = np.array(yt)
+
+
+print('trim_y shape =>', y.shape)
+print('terim_y duration => ', librosa.core.get_duration(y), 's')
+
+# plt.figure(2)
+# plt.plot(y)
+# plt.show()
+
+
+frames = framing(y, frame_len, hop_len)
+
+# it's not a good function for framming in Dr bakhtiari project i think
+# frames = librosa.util.frame(
+# y, frame_length=int(y.size / frame_len), hop_length=1)
+
+print('frames =>', frames.shape)
+print('frames[0] =>', frames[0].shape)
+
+print(frames[0])
 
 exit()
+# yy = librosa.feature.mfcc(y=y, sr=sr)
+# print('yy =>', yy.shape)
+
+# librosa.output.write_wav('write_test.wav', y, sr)
+
 
 print('y_len :', len(y))
 

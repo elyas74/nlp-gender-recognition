@@ -1,2 +1,3 @@
 deleted/
-train_data/
+*.pyc
+*.wav
