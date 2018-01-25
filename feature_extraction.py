@@ -9,10 +9,6 @@ import scipy
 # my own modules
 from framing import framing
 
-# consts
-# frame_len = 1000
-# hop_len = 20
-
 
 def feature_extraction(path, sr, mono, frame_len, hop_len):
 
@@ -42,6 +38,8 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
 
     energys = []
     zcrs = []
+    estimate_tunings = []
+    pitch_tunings = []
     mfccs = []
 
     for i in range(20):
@@ -54,6 +52,12 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
 
         zcr = np.count_nonzero(librosa.core.zero_crossings(frame))
         zcrs.append(zcr)
+
+        estimate_tuning = librosa.estimate_tuning(y=frame, sr=sr)
+        estimate_tunings.append(estimate_tuning)
+
+        pitch_tuning = librosa.core.pitch_tuning(frame)
+        pitch_tunings.append(pitch_tuning)
 
         mfcc = librosa.feature.mfcc(y=frame, sr=sr)
 
@@ -71,8 +75,18 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
     # print('mfccs shape =>', mfccs.shape)
 
     def temp(base_features):
+
+        base_features = np.array(base_features)
+
         features.append(base_features.min())
         features.append(base_features.max())
+
+        # print(base_features.min())
+        # print(base_features.max())
+        # print(np.mean(base_features))
+        # print(np.std(base_features))
+        # print(scipy.stats.kurtosis(base_features))
+        # print(scipy.stats.skew(base_features))
 
         features.append(np.mean(base_features))
         features.append(np.std(base_features))
@@ -82,6 +96,8 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
 
     temp(zcrs)
     temp(energys)
+    temp(estimate_tunings)
+    temp(pitch_tunings)
 
     for mfcc in mfccs:
         temp(mfcc)

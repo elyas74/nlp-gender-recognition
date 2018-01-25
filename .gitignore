@@ -1,3 +1,6 @@
 deleted/
+Graph/
 *.pyc
 *.wav
+*.HDF
+*.npy
