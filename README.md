@@ -23,19 +23,34 @@ for extraction your own vioces put your train `*.wav` files into this folders:
 │       └── male
 
 ```
+then for extract features of your voices (it put them in `saved_features` folder) run:
+
+```
+python save_features.py 
+```
+then for train, run:
+```
+python train.py
+```
+
 
 ## Best result
 
-train_male samples => 121
+train accuracy => ~100%
 
-train_female samples => 121
+test accuracy => ~88%
 
-test_male samples => 36
+train_male samples count => 121
 
-test_female samples => 36
+train_female samples count => 121
+
+test_male samples count => 36
+
+test_female samples count => 36
 
 LSTM nodes count => 20
 
+epochs => 500
 
 #### accuracy of the train data
 ![acc](https://github.com/elyas74/nlp-gender-recognition/blob/master/test_results/acc.png)
@@ -48,3 +63,6 @@ LSTM nodes count => 20
 
 #### loss of the test data
 ![acc](https://github.com/elyas74/nlp-gender-recognition/blob/master/test_results/val_loss.png)
+
+
+any better idea? please open an issue, thanks.
