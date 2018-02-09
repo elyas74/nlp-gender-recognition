@@ -32,10 +32,15 @@ frame_len = 1000
 hop_len = 80
 
 for _dir in train_male_dirs:
-    print('extractin features from => {}'.format(_dir))
+    print('extracting features from => {}'.format(_dir))
 
     features = feature_extraction(_dir, sr=sr, mono=True,
                                   frame_len=frame_len, hop_len=hop_len)
+
+    # print("features shape => ", features.shape)
+    # print("features => ", features)
+
+    # exit()
 
     X_train.append(features)
     Y_train.append(1)
@@ -43,7 +48,7 @@ for _dir in train_male_dirs:
     # break
 
 for _dir in train_female_dirs:
-    print('extractin features from => {}'.format(_dir))
+    print('extracting features from => {}'.format(_dir))
 
     features = feature_extraction(_dir, sr=sr, mono=True,
                                   frame_len=frame_len, hop_len=hop_len)
@@ -55,7 +60,7 @@ for _dir in train_female_dirs:
 
 
 for _dir in test_male_dirs:
-    print('extractin features from => {}'.format(_dir))
+    print('extracting features from => {}'.format(_dir))
 
     features = feature_extraction(_dir, sr=sr, mono=True,
                                   frame_len=frame_len, hop_len=hop_len)
@@ -66,7 +71,7 @@ for _dir in test_male_dirs:
     # break
 
 for _dir in test_female_dirs:
-    print('extractin features from => {}'.format(_dir))
+    print('extracting features from => {}'.format(_dir))
 
     features = feature_extraction(_dir, sr=sr, mono=True,
                                   frame_len=frame_len, hop_len=hop_len)
@@ -91,12 +96,12 @@ print('X_test.shape => {}'.format(X_test.shape))
 print('Y_test.shape => {}'.format(Y_test.shape))
 
 
-data = {
-    'X_train': X_train,
-    'Y_train': Y_train,
-    'X_test': X_test,
-    'Y_test': Y_test
-}
+# data = {
+#     'X_train': X_train,
+#     'Y_train': Y_train,
+#     'X_test': X_test,
+#     'Y_test': Y_test
+# }
 
 
 np.save('saved_features/X_train.npy', X_train)

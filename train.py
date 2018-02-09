@@ -35,30 +35,28 @@ print('Y_test.shape => {}'.format(Y_test.shape))
 
 
 model = Sequential()
+
 # model.add(Dense(16, activation='relu', input_shape=(X_train.shape[1],)))
 # model.add(Dense(256, activation='relu'))
 # model.add(Dropout(0.50))
-# model.add(Dense(64, activation='relu'))
-# model.add(Dense(8, activation='relu'))
-model.add(keras.layers.LSTM(8, input_shape=(
-    X_train.shape[1], X_train.shape[2],), activation='tanh', use_bias=True, dropout=0.3, recurrent_dropout=0.1))
 
-# model.add(keras.layers.LSTM(6, activation='tanh', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None,
-#                             activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.3, recurrent_dropout=0.1, return_sequences=False, return_state=False, go_backwards=False, stateful=False, unroll=False))
+model.add(keras.layers.LSTM(20, input_shape=(
+    X_train.shape[1], X_train.shape[2],), activation='tanh', use_bias=True, dropout=0.28, recurrent_dropout=0.15))
+
 # model.add(Dropout(0.25))
-# model.add(Dense(4, activation='relu'))
+# model.add(Dense(32, activation='relu'))
+# model.add(Dense(16, activation='relu'))
+# model.add(Dense(8, activation='relu'))
+
 model.add(Dense(2, activation='softmax'))
 
-# model.add(Embedding(X,))
-# model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
-# model.add(Dense(1, activation='sigmoid'))
 
-model.load_weights('train_weights.HDF', by_name=True)
+# model.load_weights('train_weights.HDF', by_name=True)
 model.summary()
 
 
 model.compile(loss='categorical_crossentropy',
-              optimizer=RMSprop(lr=0.005),
+              optimizer=RMSprop(lr=0.01),
               metrics=['accuracy'])
 
 tbCallBack = keras.callbacks.TensorBoard(

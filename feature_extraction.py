@@ -9,6 +9,8 @@ import scipy
 # my own modules
 from framing import framing
 
+n_mfcc = 40
+
 
 def feature_extraction(path, sr, mono, frame_len, hop_len):
 
@@ -41,9 +43,15 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
     estimate_tunings = []
     pitch_tunings = []
     mfccs = []
+    # chroma_stfts = []
 
-    for i in range(20):
+    # stfts = []
+
+    for i in range(n_mfcc):
         mfccs.append([])
+
+    # for i in range(12):
+    #     chroma_stfts.append([])
 
     for frame in frames:
 
@@ -59,12 +67,18 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
         pitch_tuning = librosa.core.pitch_tuning(frame)
         pitch_tunings.append(pitch_tuning)
 
-        mfcc = librosa.feature.mfcc(y=frame, sr=sr)
+        mfcc = librosa.feature.mfcc(y=frame, sr=sr, n_mfcc=n_mfcc)
 
-        for i in range(20):
+        for i in range(n_mfcc):
+            mfccs[i].append(np.average(mfcc[i]))
 
-            # TODO use numpy.average instead of just first one
-            mfccs[i].append(mfcc[i][0])
+        # chroma_stft = librosa.feature.chroma_stft(y=frame, sr=sr)
+
+        # for i in range(12):
+            # chroma_stfts[i].append(np.average(chroma_stft[i]))
+
+        # print(chroma_stfts)
+        # exit()
 
     zcrs = np.array(zcrs)
     energys = np.array(energys)
@@ -101,6 +115,9 @@ def feature_extraction(path, sr, mono, frame_len, hop_len):
 
     for mfcc in mfccs:
         temp(mfcc)
+
+    # for chroma_stft in chroma_stfts:
+    #     temp(chroma_stft)
 
     # print('features shape =>', np.array(features).shape)
     return np.array(features)
